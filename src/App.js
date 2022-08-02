@@ -7,8 +7,8 @@ import Home from './components/Home/Home';
 import Menu from './components/Menu/Menu';
 import Dish from './components/Dish/Dish';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Login from './components/Login/Login';
-// import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 function App() {
  
@@ -20,8 +20,8 @@ function App() {
         <Route path='/restaurants' element={<Restaurant />} />
         <Route path='/menus' element={<Menu />} />
         <Route path='/dishes' element={<Dish />} />
-        {/* <Route path='/login' element={<Login />} /> */}
-        {/* <Route path='/register' element={<Register />} /> */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

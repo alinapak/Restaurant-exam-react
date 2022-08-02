@@ -13,10 +13,9 @@ function Dish() {
   const [dishes, setDishes] = useState([]);
   const [updateForm, setUpdateForm] = useState(false);
   const [dishId, setDishId] = useState("");
-  // const [token, _] = useState(localStorage.getItem("token"));
+  const [token, _] = useState(localStorage.getItem("token"));
 
   function createDish() {
-    // console.warn(title, price, file, restaurant);
     const formData = new FormData();
     formData.append('title', title);
     formData.append('price', price);
@@ -30,7 +29,7 @@ function Dish() {
     // fetch while creating project
     fetch("http://127.0.0.1:8000/api/v1/dishes", {
       method: 'POST',
-      // headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
+      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     });
   }
@@ -65,7 +64,7 @@ function Dish() {
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/dishes/" + dishId, {
       method: 'POST',
-      // headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
+      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     })
   }
@@ -76,7 +75,7 @@ function Dish() {
 
     // fetch while creating project
     fetch("http://127.0.0.1:8000/api/v1/dishes/" + id, { method: 'DELETE',
-    //  headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+     headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
      })
       .then((response) => {
         console.log(response);
@@ -93,7 +92,7 @@ function Dish() {
 
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/menus", 
-    // { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+    { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
       .then(
@@ -108,7 +107,7 @@ function Dish() {
     //fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes")
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/dishes", 
-    // { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+    { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
       .then(

@@ -12,6 +12,7 @@ function Menu () {
   const [menus, setMenus] = useState([]);
   const [updateForm, setUpdateForm] = useState(false);
   const [menuId, setMenuId] = useState("");
+  const [token, _] = useState(localStorage.getItem("token"));
 
   function createMenu() {
     // console.warn(title, price, file, restaurant);
@@ -25,7 +26,7 @@ function Menu () {
     // fetch while creating project
     fetch("http://127.0.0.1:8000/api/v1/menus", {
       method: 'POST',
-      // headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
+      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     });
   }
@@ -35,7 +36,7 @@ function Menu () {
 
     // fetch while creating project
     fetch("http://127.0.0.1:8000/api/v1/menus/" + id, { method: 'DELETE',
-    //  headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+     headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
      })
       .then((response) => {
         console.log(response);
@@ -67,7 +68,7 @@ function Menu () {
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/menus/" + menuId, {
       method: 'POST',
-      // headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
+      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     })
   }
@@ -77,7 +78,7 @@ function Menu () {
 
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/restaurants", 
-    // { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+    { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
       .then(
@@ -92,7 +93,7 @@ function Menu () {
     //fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes")
     // fetch while creating app
     fetch("http://127.0.0.1:8000/api/v1/menus", 
-    // { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+    { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
       .then(
