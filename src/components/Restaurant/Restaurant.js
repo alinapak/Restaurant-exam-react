@@ -14,6 +14,7 @@ function Restaurant() {
     const [updateForm, setUpdateForm] = useState(false);
     const [restId, setRestId] = useState("");
     const [token, _] = useState(localStorage.getItem("token"));
+    const [admin, setAdmin] = useState(localStorage.getItem("username"));
 
     function createRest() {
         const formData = new FormData();
@@ -100,7 +101,7 @@ function Restaurant() {
     } else {
         return (
             <>
-                <Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti restoraną</Link>
+                {admin==='admin'?<Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti restoraną</Link>:<h1 className='display-1 m-3 p-3 text-success text-center'>Restoranai</h1>}
                 <div className="container card mt-3">
                     <table className="table m-3 table-responsive">
                         <thead>
@@ -109,7 +110,7 @@ function Restaurant() {
                                 <th>Kodas</th>
                                 <th>Miestas</th>
                                 <th>Adresas</th>
-                                <th>Veiksmai</th>
+                               {admin==="admin"?<th>Veiksmai</th>:<th></th>}
                             </tr>
                         </thead>
                         <tbody>
@@ -119,13 +120,13 @@ function Restaurant() {
                                     <td>{restaurant.code}</td>
                                     <td>{restaurant.city}</td>
                                     <td>{restaurant.address}</td>
-                                    <td className='d-grid gap-2 d-md-block'><button className="btn btn-success mx-1" onClick={(e) => selectRest(restaurant.id, e)}>Atnaujinti</button><button onClick={(e) => deleteRest(restaurant.id, e)} className="btn btn-dark">Ištrinti</button></td>
+                                  {admin==='admin'?<td className='d-grid gap-2 d-md-block'><button className="btn btn-success mx-1" onClick={(e) => selectRest(restaurant.id, e)}>Atnaujinti</button><button onClick={(e) => deleteRest(restaurant.id, e)} className="btn btn-dark">Ištrinti</button></td>:<td></td>}  
                                 </tr>
                             )
                             )}
                         </tbody>
                     </table>
-                    {!updateForm
+             {admin==='admin'?<div>{!updateForm
                         ? <div id='create' className='card  mt-3 border-success'>
                             <h3 className='m-3 text-success text-center mt-5'> Sukurti restoraną</h3>
                             <form className='container'>
@@ -162,7 +163,8 @@ function Restaurant() {
                                 <button onClick={(e) => setUpdateForm(false)} className='bg-dark btn float-end text-light m-3'>Atšaukti</button>
                                 <button onClick={updateRest} className='bg-success btn float-end text-light m-3'>Pakeisti</button>
                             </form>
-                        </div>}
+                        </div>}</div>:<div></div>}  
+                  
                 </div>
             </>
         );

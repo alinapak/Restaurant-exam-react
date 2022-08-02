@@ -14,6 +14,7 @@ function Dish() {
   const [updateForm, setUpdateForm] = useState(false);
   const [dishId, setDishId] = useState("");
   const [token, _] = useState(localStorage.getItem("token"));
+  const [admin, setAdmin] = useState(localStorage.getItem("username"));
 
   function createDish() {
     const formData = new FormData();
@@ -129,7 +130,7 @@ function Dish() {
   } else {
     return (
       <>
-        <Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti patiekalą</Link>
+          {admin==='admin'?<Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti patiekalą</Link>:<h1 className='display-1 m-3 p-3 text-success text-center'>Patiekalai</h1>}
         <div className="container card mt-3">
           <table className="table">
             <thead>
@@ -139,7 +140,7 @@ function Dish() {
                 <th>Nuotrauka</th>
                 <th>Aprašymas</th>
                 <th>Menu</th>
-                <th>Veiksmai</th>
+                {admin==="admin"?<th>Veiksmai</th>:<th></th>}
               </tr>
             </thead>
             <tbody>
@@ -150,16 +151,15 @@ function Dish() {
                   <td>{dish.price}</td>
                   <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'http://127.0.0.1:8000/' + dish.file} /></td>
                   <td>{dish.description}</td>
-                  {dish.menu !== null ? (<td>{dish.menu.title}</td>) : (<td></td>)}
-                  <td>
-                    <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectDish(dish.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteDish(dish.id, e)} className="btn btn-dark">Ištrinti</button></div></td>
-
+                  {dish.menu !== null ? (<td><Link to='/menus'>{dish.menu.title}</Link></td>) : (<td></td>)}
+                  {admin==='admin'?<td>
+                    <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectDish(dish.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteDish(dish.id, e)} className="btn btn-dark">Ištrinti</button></div></td>:<td></td>}
                 </tr>
               )
               )}
             </tbody>
           </table>
-          {
+          {admin==='admin'?<div>  {
             !updateForm
               ? <div id='create' className='card  mt-3 border-success'>
                 <h3 className='m-3 text-success text-center mt-5'> Sukurti patiekalą</h3>
@@ -217,7 +217,8 @@ function Dish() {
                   <button onClick={changeDish} className='bg-success btn float-end text-light m-3'>Pakeisti</button>
                 </form>
               </div>
-          }
+          }</div>:<div></div>}
+        
         </div >
       </>
     );

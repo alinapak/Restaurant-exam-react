@@ -13,6 +13,7 @@ function Menu () {
   const [updateForm, setUpdateForm] = useState(false);
   const [menuId, setMenuId] = useState("");
   const [token, _] = useState(localStorage.getItem("token"));
+  const [admin, setAdmin] = useState(localStorage.getItem("username"));
 
   function createMenu() {
     // console.warn(title, price, file, restaurant);
@@ -115,14 +116,14 @@ function Menu () {
   } else {
     return (
       <>
-        <Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti menu</Link>
+      {admin==='admin'?<Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti menu</Link>:<h1 className='display-1 m-3 p-3 text-success text-center'>Menu</h1>}
         <div className="container card mt-3">
           <table className="table">
             <thead>
               <tr>
                 <th>Pavadinimas</th>
                 <th>Restoranas</th>
-                <th>Veiksmai</th>
+                {admin==="admin"?<th>Veiksmai</th>:<th></th>}
               </tr>
             </thead>
             <tbody>
@@ -131,15 +132,15 @@ function Menu () {
                 <tr key={m.id}>
                   <td>{m.title}</td>
                   {m.restaurant !== null ? (<td>{m.restaurant.title}</td>) : (<td></td>)}
-                  <td>
-                    <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectMenu(m.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteMenu(m.id, e)} className="btn btn-dark">Ištrinti</button></div></td>
+                {admin==='admin'?<td>
+                    <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectMenu(m.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteMenu(m.id, e)} className="btn btn-dark">Ištrinti</button></div></td>:<td></td>}  
 
                 </tr>
               )
               )}
             </tbody>
           </table>
-          {
+          {admin==='admin'?<div>{
             !updateForm
               ? <div id='create' className='card  mt-3 border-success'>
                 <h3 className='m-3 text-success text-center mt-5'> Sukurti menu</h3>
@@ -179,7 +180,8 @@ function Menu () {
                   <button onClick={changeMenu} className='bg-success btn float-end text-light m-3'>Pridėti</button>
                 </form>
               </div>
-          }
+          }</div>:<div></div>}
+          
         </div >
       </>
     );
