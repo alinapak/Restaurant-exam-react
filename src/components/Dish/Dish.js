@@ -144,7 +144,7 @@ function Dish() {
                 <tr key={dish.id}>
                   <td>{dish.title}</td>
                   <td>{dish.price}</td>
-                  <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'https://restaurant-dish-menu-react.herokuapp.com/' + dish.file} /></td>
+                  <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'https://restaurant-menu-laravel.herokuapp.com/' + dish.file} /></td>
                   <td>{dish.description}</td>
                   {dish.menu !== null ? (<td>{dish.menu.title}</td>) : (<td></td>)}
                   {admin==='admin'?<td>
