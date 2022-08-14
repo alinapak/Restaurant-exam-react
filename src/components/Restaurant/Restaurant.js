@@ -148,7 +148,6 @@ function Restaurant() {
     } else {
         return (
             <>
-
                 {admin === 'admin' ? <Link className="btn btn-success btn-lg d-block m-5" to="#create" role="button">Sukurti restoraną</Link> : <h1 className='display-1 m-3 p-3 text-success text-center'>Restoranai</h1>}
                 <div className="container card mt-3">
                     <table className="table m-3 table-responsive">
@@ -174,7 +173,7 @@ function Restaurant() {
                             )}
                         </tbody>
                     </table>
-                    {selectMenu ? <><button onClick={(e) => renderMenu()} className="btn btn-success mx-1 mb-3">Peržiūrėti {title} Menu</button></> : <></>}
+                    {admin !== 'admin' ? <> {selectMenu ? <button onClick={(e) => renderMenu()} className="btn btn-success mx-1 mb-3">Peržiūrėti {title} Menu</button> : <></>}</> : <></>}
                     {showMenu ? <div class="row">
                         {dish.map(d => (
                             <div class="col-sm-6">
