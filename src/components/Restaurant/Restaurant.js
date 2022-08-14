@@ -181,7 +181,7 @@ function Restaurant() {
                                     <div className="card-body d-flex ">
                                         <div>
                                             <h5 className="card-title">{d.title}</h5>
-                                            <img className='m-2 card-img-top' style={{ width: "200px", height: "150px", objectFit: "cover" }} src={'http://127.0.0.1:8000/' + d.file}></img>
+                                            <img className='m-2 card-img-top' style={{ width: "200px", height: "150px", objectFit: "cover" }} src={'https://restaurant-dish-menu-react.herokuapp.com/' + d.file}></img>
                                             <p className='text-success fst-italic fs-4'>{d.price}</p>
                                         </div>
                                         <div className='float-end m-3' style={{"width":"15rem"}}>
