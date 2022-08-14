@@ -16,7 +16,7 @@ function Register() {
     formData.append('email', email);
     formData.append('password', password);
 
-    await fetch("http://127.0.0.1:8000/api/register", {
+    await fetch("https://restaurant-menu-laravel.herokuapp.com/api/register", {
       method: 'POST',
       body: formData,
       headers: { "Accept": 'application/json'},

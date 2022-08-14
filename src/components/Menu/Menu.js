@@ -21,11 +21,7 @@ function Menu () {
     formData.append('title', title);
     formData.append('restaurant_id', restaurant);
 
-    // fetch from heroku
-    // fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes", {
-
-    // fetch while creating project
-    fetch("http://127.0.0.1:8000/api/v1/menus", {
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus", {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -33,10 +29,10 @@ function Menu () {
   }
   function deleteMenu(id, e) {
     // fetch from heroku
-    //  fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes/" + id, { method: 'DELETE' })
+     fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + id, { method: 'DELETE',
 
     // fetch while creating project
-    fetch("http://127.0.0.1:8000/api/v1/menus/" + id, { method: 'DELETE',
+    // fetch("http://127.0.0.1:8000/api/v1/menus/" + id, { method: 'DELETE',
      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
      })
       .then((response) => {
@@ -65,9 +61,9 @@ function Menu () {
     formData.set('restaurant_id', restaurant);
 
     // fetch from heroku
-    // fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes/" + dishId, {
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + menuId, {
     // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/menus/" + menuId, {
+    // fetch("http://127.0.0.1:8000/api/v1/menus/" + menuId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -75,10 +71,10 @@ function Menu () {
   }
   useEffect(() => {
     // fetch from heroku
-    //  fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/restaurants")
+     fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants",
 
     // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/restaurants", 
+    // fetch("http://127.0.0.1:8000/api/v1/restaurants", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -91,9 +87,9 @@ function Menu () {
 
   useEffect(() => {
     // fetch from heroku
-    //fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes")
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus",
     // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/menus", 
+    // fetch("http://127.0.0.1:8000/api/v1/menus", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())

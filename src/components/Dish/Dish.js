@@ -25,10 +25,10 @@ function Dish() {
     formData.append('menu_id', menu);
 
     // fetch from heroku
-    // fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes", {
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes", {
 
     // fetch while creating project
-    fetch("http://127.0.0.1:8000/api/v1/dishes", {
+    // fetch("http://127.0.0.1:8000/api/v1/dishes", {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -61,9 +61,9 @@ function Dish() {
     formData.set('description', description);
     formData.set('menu_id', menu);
     // fetch from heroku
-    // fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes/" + dishId, {
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes/" + dishId, {
     // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/dishes/" + dishId, {
+    // fetch("http://127.0.0.1:8000/api/v1/dishes/" + dishId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -72,10 +72,10 @@ function Dish() {
 
   function deleteDish(id, e) {
     // fetch from heroku
-    //  fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes/" + id, { method: 'DELETE' })
+     fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes/" + id, { method: 'DELETE' ,
 
     // fetch while creating project
-    fetch("http://127.0.0.1:8000/api/v1/dishes/" + id, { method: 'DELETE',
+    // fetch("http://127.0.0.1:8000/api/v1/dishes/" + id, { method: 'DELETE',
      headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
      })
       .then((response) => {
@@ -88,11 +88,8 @@ function Dish() {
   }
 
   useEffect(() => {
-    // fetch from heroku
-    //  fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/restaurants")
-
     // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/menus", 
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -104,10 +101,8 @@ function Dish() {
   }, [])
 
   useEffect(() => {
-    // fetch from heroku
-    //fetch("https://lara-restaurant-prepare.herokuapp.com/api/v1/dishes")
-    // fetch while creating app
-    fetch("http://127.0.0.1:8000/api/v1/dishes", 
+
+    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -151,7 +146,7 @@ function Dish() {
                   <td>{dish.price}</td>
                   <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'http://127.0.0.1:8000/' + dish.file} /></td>
                   <td>{dish.description}</td>
-                  {dish.menu !== null ? (<td><Link to='/menus'>{dish.menu.title}</Link></td>) : (<td></td>)}
+                  {dish.menu !== null ? (<td>{dish.menu.title}</td>) : (<td></td>)}
                   {admin==='admin'?<td>
                     <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectDish(dish.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteDish(dish.id, e)} className="btn btn-dark">Ištrinti</button></div></td>:<td></td>}
                 </tr>
@@ -177,7 +172,7 @@ function Dish() {
                   </div>
                   </div>  
                   <div className="form-group">
-                    <label className='my-3'>Priskirti patiekalą restoranui:</label>
+                    <label className='my-3'>Priskirti patiekalą restorano menu:</label>
                     <select className='form-select dish' value={menu} onChange={(e) => setMenu(e.target.value)}>
                       {menus.map(m => (
                         <option key={m.id} value={m.id} >{m.title}</option>
