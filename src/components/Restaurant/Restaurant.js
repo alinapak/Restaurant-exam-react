@@ -7,7 +7,7 @@ function Restaurant() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [restaurants, setRestaurants] = useState([]);
-    const [menus, setMenus] = useState([]);
+    // const [menus, setMenus] = useState([]);
     const [dish, setDishes] = useState([]);
     const [title, setTitle] = useState("");
     const [code, setCode] = useState("");
@@ -45,7 +45,7 @@ function Restaurant() {
                 setCode(r.code);
                 setCity(r.city);
                 setAddress(r.address);
-                setMenuId(r.menu.id);
+                setMenuId((r.menu ===null) ? " " : r.menu.id);
                 console.log(menuId);
             }
         })
@@ -121,25 +121,25 @@ function Restaurant() {
                 },
                 (error) => { setError(error); setIsLoaded(true); })
     }, [])
-    useEffect(() => {
-        // fetch from heroku
-        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus",
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants",
-            { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
-        )
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    // if(!result.ok) {
-                    //     setError(result);
-                    //     setIsLoaded(true);
-                    // }
-                    setMenus(result);
-                    setIsLoaded(true);
-                },
-                (error) => { setError(error); setIsLoaded(true); })
-    }, [])
+    // useEffect(() => {
+    //     // fetch from heroku
+    //     fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus",
+    //     // fetch while creating app
+    //     // fetch("http://127.0.0.1:8000/api/v1/restaurants",
+    //         { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+    //     )
+    //         .then(res => res.json())
+    //         .then(
+    //             (result) => {
+    //                 // if(!result.ok) {
+    //                 //     setError(result);
+    //                 //     setIsLoaded(true);
+    //                 // }
+    //                 setMenus(result);
+    //                 setIsLoaded(true);
+    //             },
+    //             (error) => { setError(error); setIsLoaded(true); })
+    // }, [])
 
     if (!isLoaded) {
         return <div>Loading...</div>;
