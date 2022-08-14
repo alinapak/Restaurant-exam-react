@@ -121,6 +121,25 @@ function Restaurant() {
                 },
                 (error) => { setError(error); setIsLoaded(true); })
     }, [])
+    useEffect(() => {
+        // fetch from heroku
+        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus",
+        // fetch while creating app
+        // fetch("http://127.0.0.1:8000/api/v1/restaurants",
+            { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
+        )
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    // if(!result.ok) {
+                    //     setError(result);
+                    //     setIsLoaded(true);
+                    // }
+                    setMenus(result);
+                    setIsLoaded(true);
+                },
+                (error) => { setError(error); setIsLoaded(true); })
+    }, [])
 
     if (!isLoaded) {
         return <div>Loading...</div>;
