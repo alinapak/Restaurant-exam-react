@@ -47,10 +47,10 @@ function Restaurant() {
                 setAddress(r.address);
                 setMenuId((r.menu ===null) ? " " : r.menu.id);
                 console.log(menuId);
+                setUpdateForm(true);
+        setSelectMenu((menuId===" ") ? false : true);
             }
         })
-        setUpdateForm(true);
-        setSelectMenu((menuId===" ") ? false : true);
     }
     function updateRest() {
         const formData = new FormData;
