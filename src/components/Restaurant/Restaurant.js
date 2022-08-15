@@ -18,7 +18,6 @@ function Restaurant() {
     const [showMenu, setShowMenu] = useState(false);
     const [restId, setRestId] = useState("");
     const [menuId, setMenuId] = useState("");
-    const [message, setMessage] = useState("");
     const [token, _] = useState(localStorage.getItem("token"));
     const [admin, setAdmin] = useState(localStorage.getItem("username"));
 
@@ -46,13 +45,17 @@ function Restaurant() {
                 setCode(r.code);
                 setCity(r.city);
                 setAddress(r.address);
-                setMenuId((r.menu === null) ? " " : r.menu.id);
-                console.log(menuId);
-
-                setSelectMenu((menuId === " ") ? false : true);
             }
         })
         setUpdateForm(true);
+    }
+    function selectMenuId(id, e) {
+        menus.map((m) => {
+            if (m.id === id) {
+                setMenuId(m.id);
+            }
+        })
+        setSelectMenu(true);
     }
     function updateRest() {
         const formData = new FormData;
@@ -71,25 +74,21 @@ function Restaurant() {
         })
     }
     function renderMenu(e) {
-        setMessage("Restoranas neturi patiekalų");
-        if (menuId === "")
-            return { message }
-        else
-            fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + menuId, {
-                method: 'GET',
-                headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
-            })
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        // if(!result.ok) {
-                        //     setError(result);
-                        //     setIsLoaded(true);
-                        // }
-                        setDishes(result.dishes);
-                        setIsLoaded(true);
-                    },
-                    (error) => { setError(error); setIsLoaded(true); })
+        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + menuId, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+        })
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    // if(!result.ok) {
+                    //     setError(result);
+                    //     setIsLoaded(true);
+                    // }
+                    setDishes(result.dishes);
+                    setIsLoaded(true);
+                },
+                (error) => { setError(error); setIsLoaded(true); })
         console.log(dish);
         setShowMenu(true);
     }
@@ -166,21 +165,26 @@ function Restaurant() {
                                 {admin === "admin" ? <th>Veiksmai</th> : <th></th>}
                             </tr>
                         </thead>
-                        <tbody>
+                        {admin === 'admin' ? <tbody>
                             {restaurants.map(restaurant => (
                                 <tr key={restaurant.id}>
-                                    {admin === 'admin' ? <td>{restaurant.title}</td> : <td><button className="btn btn-success mx-1" onClick={(e) => selectRest(restaurant.id, e)}>{restaurant.title}</button></td>}
+                                    <td>{restaurant.title}</td>
                                     <td>{restaurant.code}</td>
                                     <td>{restaurant.city}</td>
                                     <td>{restaurant.address}</td>
-                                    {admin === 'admin' ? <td className='d-grid gap-2 d-md-block'><button className="btn btn-success mx-1" onClick={(e) => selectRest(restaurant.id, e)}>Atnaujinti</button><button onClick={(e) => deleteRest(restaurant.id, e)} className="btn btn-dark">Ištrinti</button></td> : <td></td>}
+                                    <td className='d-grid gap-2 d-md-block'><button className="btn btn-success mx-1" onClick={(e) => selectRest(restaurant.id, e)}>Atnaujinti</button><button onClick={(e) => deleteRest(restaurant.id, e)} className="btn btn-dark">Ištrinti</button></td>
                                 </tr>
                             )
                             )}
                         </tbody>
+                            : <tbody>{menus.map(menu => (
+                                <tr key={menu.id}>
+                                    <td><button className="btn btn-success mx-1" onClick={(e) => selectMenuId(menu.id, e)}>{menu.restaurant_id.title}</button></td>
+                                </tr>
+                            ))}</tbody>}
+
                     </table>
                     {admin !== 'admin' ? <> {selectMenu ? <button onClick={(e) => renderMenu()} className="btn btn-success mx-1 mb-3">Peržiūrėti {title} Menu</button> : <></>}</> : <></>}
-                    <p>{message}</p>
                     {showMenu ? <div class="row">
                         {dish.map(d => (
                             <div class="col-sm-6">
