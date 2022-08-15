@@ -146,7 +146,7 @@ function Menu () {
                   </div> 
                   <div className="form-group">
                     <label className='my-3'>Priskirti menu restoranui:</label>
-                    <select className='form-select dish' value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
+                    <select required className='form-select dish' value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
                       {restaurants.map(r => (
                         <option key={r.id} value={r.id} >{r.title}</option>
                       )
@@ -165,7 +165,7 @@ function Menu () {
                   </div> 
                   <div className="form-group">
                     <label className='my-3'>Priskirti menu restoranui:</label>
-                    <select className='form-select dish' value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
+                    <select required className='form-select dish' value={restaurant} onChange={(e) => setRestaurant(e.target.value)}>
                       {restaurants.map(r => (
                         <option key={r.id} value={r.id} >{r.title}</option>
                       )

@@ -173,7 +173,7 @@ function Dish() {
                   </div>  
                   <div className="form-group">
                     <label className='my-3'>Priskirti patiekalą restorano menu:</label>
-                    <select className='form-select dish' value={menu} onChange={(e) => setMenu(e.target.value)}>
+                    <select required className='form-select dish' value={menu} onChange={(e) => setMenu(e.target.value)}>
                       {menus.map(m => (
                         <option key={m.id} value={m.id} >{m.title}</option>
                       )
@@ -201,7 +201,7 @@ function Dish() {
                   </div>
                    <div className="form-group">
                     <label className='my-3'>Priskirti patiekalą restorano menu:</label>
-                    <select className='form-select dish' value={menu} onChange={(e) => setMenu(e.target.value)}>
+                    <select required className='form-select dish' value={menu} onChange={(e) => setMenu(e.target.value)}>
                       <option value={""}>--Nėra jokio restorano menu--</option>
                       {menus.map(m => (
                         <option key={m.id} value={m.id} >{m.title}</option>
