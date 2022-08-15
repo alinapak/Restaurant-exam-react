@@ -18,6 +18,7 @@ function Restaurant() {
     const [showMenu, setShowMenu] = useState(false);
     const [restId, setRestId] = useState("");
     const [menuId, setMenuId] = useState("");
+    const [message, setMessage] = useState("");
     const [token, _] = useState(localStorage.getItem("token"));
     const [admin, setAdmin] = useState(localStorage.getItem("username"));
 
@@ -28,9 +29,9 @@ function Restaurant() {
         formData.append('city', city);
         formData.append('address', address);
         // fetch from heroku
-         fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants", {
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants", {
+        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants", {
+            // fetch while creating app
+            // fetch("http://127.0.0.1:8000/api/v1/restaurants", {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
@@ -45,12 +46,13 @@ function Restaurant() {
                 setCode(r.code);
                 setCity(r.city);
                 setAddress(r.address);
-                setMenuId((r.menu ===null) ? " " : r.menu.id);
+                setMenuId((r.menu === null) ? " " : r.menu.id);
                 console.log(menuId);
-                setUpdateForm(true);
-        setSelectMenu((menuId===" ") ? false : true);
+
+                setSelectMenu((menuId === " ") ? false : true);
             }
         })
+        setUpdateForm(true);
     }
     function updateRest() {
         const formData = new FormData;
@@ -60,37 +62,41 @@ function Restaurant() {
         formData.set('city', city);
         formData.set('address', address);
         // fetch from heroku
-          fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants/" + restId, {
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + restId, {
+        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants/" + restId, {
+            // fetch while creating app
+            // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + restId, {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
         })
     }
     function renderMenu(e) {
-        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + menuId, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
-        })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    // if(!result.ok) {
-                    //     setError(result);
-                    //     setIsLoaded(true);
-                    // }
-                    setDishes(result.dishes);
-                    setIsLoaded(true);
-                },
-                (error) => { setError(error); setIsLoaded(true); })
+        setMessage("Restoranas neturi patiekalų");
+        if (menuId === "")
+            return { message }
+        else
+            fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus/" + menuId, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+            })
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        // if(!result.ok) {
+                        //     setError(result);
+                        //     setIsLoaded(true);
+                        // }
+                        setDishes(result.dishes);
+                        setIsLoaded(true);
+                    },
+                    (error) => { setError(error); setIsLoaded(true); })
         console.log(dish);
         setShowMenu(true);
     }
     function deleteRest(id, e) {
         // fetch from heroku
-        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants/" + id, { 
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + id, {
+        fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants/" + id, {
+            // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + id, {
             method: 'DELETE',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
@@ -105,8 +111,8 @@ function Restaurant() {
     useEffect(() => {
         // fetch from heroku
         fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/restaurants",
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants",
+            // fetch while creating app
+            // fetch("http://127.0.0.1:8000/api/v1/restaurants",
             { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
         )
             .then(res => res.json())
@@ -122,10 +128,10 @@ function Restaurant() {
                 (error) => { setError(error); setIsLoaded(true); })
     }, [])
     useEffect(() => {
-    //     // fetch from heroku
+        //     // fetch from heroku
         fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus",
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants",
+            // fetch while creating app
+            // fetch("http://127.0.0.1:8000/api/v1/restaurants",
             { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
         )
             .then(res => res.json())
@@ -174,6 +180,7 @@ function Restaurant() {
                         </tbody>
                     </table>
                     {admin !== 'admin' ? <> {selectMenu ? <button onClick={(e) => renderMenu()} className="btn btn-success mx-1 mb-3">Peržiūrėti {title} Menu</button> : <></>}</> : <></>}
+                    <p>{message}</p>
                     {showMenu ? <div class="row">
                         {dish.map(d => (
                             <div class="col-sm-6">
@@ -184,7 +191,7 @@ function Restaurant() {
                                             <img className='m-2 card-img-top' style={{ width: "200px", height: "150px", objectFit: "cover" }} src={'https://restaurant-dish-menu-react.herokuapp.com/' + d.file}></img>
                                             <p className='text-success fst-italic fs-4'>{d.price}</p>
                                         </div>
-                                        <div className='float-end m-3' style={{"width":"15rem"}}>
+                                        <div className='float-end m-3' style={{ "width": "15rem" }}>
                                             <p className="card-text p-4 text-wrap">{d.description}</p>
                                         </div>
 
