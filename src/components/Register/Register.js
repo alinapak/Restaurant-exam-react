@@ -18,7 +18,8 @@ function Register() {
     formData.append('password', password);
 
     // need to change url if deploy to heroku
-    await fetch("http://127.0.0.1:8000/api/register", {
+    await fetc ('https://restaurant-app-laravel.herokuapp.com/api/register', {
+    // await fetch("http://127.0.0.1:8000/api/register", {
       method: 'POST',
       body: formData,
       headers: { "Accept": 'application/json' },
