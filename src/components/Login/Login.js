@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 async function loginUser(credentials) {
   console.log(JSON.stringify(credentials));
-  return fetch('https://restaurant-menu-laravel.herokuapp.com/api/login',
+  // need to change if deploy to heroku
+  return fetch('https://restaurant-app-laravel.herokuapp.com/api/login',
+  // return fetch('http://127.0.0.1:8000/api/login',
     {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -18,13 +20,15 @@ export default function Login({ setLogedIn }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [message, setMessage] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (token) { 
-console.log(token);
-window.location.href='/restaurants'}
-    else if(!token){
+    if (token) {
+      console.log(token);
+      window.location.href = '/restaurants'
+    }
+    else if (!token) {
       return nav("/login");
     }
   }, [token]);
@@ -33,11 +37,17 @@ window.location.href='/restaurants'}
     event.preventDefault();
     const loginInfo = await loginUser({ email, password });
     console.log(loginInfo);
-    setToken(loginInfo["authorisation"]["token"]);
-    localStorage.setItem('token', loginInfo["authorisation"]["token"]);
-    localStorage.setItem('username', loginInfo["user"]["name"]);
-    // localStorage.setItem('admin', loginInfo["user"]["admin"]);
-    setLogedIn(true);
+    if (loginInfo.status === "error") {
+      setMessage(true);
+    }
+    else if (loginInfo.status === 'success') {
+      setMessage(false);
+      setToken(loginInfo["authorisation"]["token"]);
+      localStorage.setItem('token', loginInfo["authorisation"]["token"]);
+      localStorage.setItem('username', loginInfo["user"]["name"]);
+      // localStorage.setItem('admin', loginInfo["user"]["admin"]);
+      setLogedIn(true);
+    }
   }
 
   return (
@@ -54,13 +64,14 @@ window.location.href='/restaurants'}
           </div>
           <div className="form-group">
             <label className='m-2' htmlFor="pass">Password</label>
-            <input type="password" className="form-control" id="pass" onChange={e => setPassword(e.target.value)}  required placeholder="Password" />
+            <input type="password" className="form-control" id="pass" onChange={e => setPassword(e.target.value)} required placeholder="Password" />
           </div>
           <br />
           <button type="submit" className="btn btn-warning">Submit</button>
         </form>
 
       </div>
+      {message?<p className= 'mt-2 alert alert-danger'>Neteisingas pašto adresas arba slaptažodis</p> :""}
     </div>
   )
 }

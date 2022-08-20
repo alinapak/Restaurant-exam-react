@@ -25,7 +25,7 @@ function Dish() {
     formData.append('menu_id', menu);
 
     // fetch from heroku
-    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes", {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes", {
 
     // fetch while creating project
     // fetch("http://127.0.0.1:8000/api/v1/dishes", {
@@ -61,7 +61,7 @@ function Dish() {
     formData.set('description', description);
     formData.set('menu_id', menu);
     // fetch from heroku
-    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes/" + dishId, {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes/" + dishId, {
     // fetch while creating app
     // fetch("http://127.0.0.1:8000/api/v1/dishes/" + dishId, {
       method: 'POST',
@@ -72,7 +72,7 @@ function Dish() {
 
   function deleteDish(id, e) {
     // fetch from heroku
-     fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes/" + id, { method: 'DELETE' ,
+     fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes/" + id, { method: 'DELETE' ,
 
     // fetch while creating project
     // fetch("http://127.0.0.1:8000/api/v1/dishes/" + id, { method: 'DELETE',
@@ -89,7 +89,8 @@ function Dish() {
 
   useEffect(() => {
     // fetch while creating app
-    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/menus", 
+    // fetch("http://127.0.0.1:8000/api/v1/menus",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -101,8 +102,8 @@ function Dish() {
   }, [])
 
   useEffect(() => {
-
-    fetch("https://restaurant-menu-laravel.herokuapp.com/api/v1/dishes", 
+    // fetch("http://127.0.0.1:8000/api/v1/dishes",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes", 
     { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -144,8 +145,8 @@ function Dish() {
                 <tr key={dish.id}>
                   <td>{dish.title}</td>
                   <td>{dish.price}</td>
-                  <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'../' + dish.file} /></td>
-                  <td>{dish.description}</td>
+                  <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} src={'http://127.0.0.1:8000/' + dish.file} /></td>
+                  <td style={{ width: "200px"}}>{dish.description}</td>
                   {dish.menu !== null ? (<td>{dish.menu.title}</td>) : (<td></td>)}
                   {admin==='admin'?<td>
                     <div className='d-grid gap-2 d-md-block'><Link to='#update' ><button onClick={(e) => selectDish(dish.id, e)} className="btn btn-success mx-1">Atnaujinti</button></Link><button onClick={(e) => deleteDish(dish.id, e)} className="btn btn-dark">Ištrinti</button></div></td>:<td></td>}
