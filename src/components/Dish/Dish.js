@@ -24,7 +24,7 @@ function Dish() {
     formData.append('description', description);
     formData.append('menu_id', menu);
 
-    fetch("/v1/dishes", {
+    fetch("/api/v1/dishes", {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -55,7 +55,7 @@ function Dish() {
     formData.set('description', description);
     formData.set('menu_id', menu);
 
-    fetch("/v1/dishes/" + dishId, {
+    fetch("/api/v1/dishes/" + dishId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -63,7 +63,7 @@ function Dish() {
   }
 
   function deleteDish(id, e) {
-    fetch("/v1/dishes/" + id, {
+    fetch("/api/v1/dishes/" + id, {
       method: 'DELETE',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
     })
@@ -77,7 +77,7 @@ function Dish() {
   }
 
   useEffect(() => {
-    fetch("/v1/menus",
+    fetch("/api/v1/menus",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -89,7 +89,7 @@ function Dish() {
   }, [])
 
   useEffect(() => {
-    fetch("/v1/dishes",
+    fetch("/api/v1/dishes",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())

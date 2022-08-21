@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 async function loginUser(credentials) {
   console.log(JSON.stringify(credentials));
-  return fetch('/login',{
+  return fetch('/api/login',{
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
     }).then(data => data.json())

@@ -36,14 +36,14 @@ function Menu() {
       e.preventDefault();
       setMessage(true);
     }
-    fetch('/v1/menus', {
+    fetch('/api/v1/menus', {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     });
   }
   function deleteMenu(id, e) {
-    fetch("/v1/menus/" + id, {
+    fetch("/api/v1/menus/" + id, {
       method: 'DELETE',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
     })
@@ -85,14 +85,14 @@ function Menu() {
     else if (index === -1) {
       formData.set('restaurant_id', restaurant);
     }
-    fetch("/v1/menus/" + menuId, {
+    fetch("/api/v1/menus/" + menuId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     })
   }
   useEffect(() => {
-    fetch("/v1/restaurants",
+    fetch("/api/v1/restaurants",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -104,7 +104,7 @@ function Menu() {
   }, [])
 
   useEffect(() => {
-    fetch("/v1/menus",
+    fetch("/api/v1/menus",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())

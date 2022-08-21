@@ -17,7 +17,7 @@ function Register() {
     formData.append('email', email);
     formData.append('password', password);
 
-    await fetch('/register', {
+    await fetch('/api/register', {
       method: 'POST',
       body: formData,
       headers: { "Accept": 'application/json' },
