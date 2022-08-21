@@ -148,6 +148,7 @@ function Dish() {
                   <td><img style={{ width: "150px", height: "150px", objectFit: "cover" }} 
                   // src from heroku
                   src={'https://restaurant-app-laravel.herokuapp.com/'+ dish.file}
+                  alt={dish.title}
                   // src={'http://127.0.0.1:8000/' + dish.file} 
                   /></td>
                   <td style={{ width: "200px"}}>{dish.description}</td>

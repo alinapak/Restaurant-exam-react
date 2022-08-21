@@ -261,6 +261,7 @@ function Restaurant() {
                                             // src={'http://127.0.0.1:8000/' + d.file}
                                             // src heroku
                                             src={'https://restaurant-app-laravel.herokuapp.com/'+d.file}
+                                            alt={dish.title}
                                             >
                                             </img>
                                             <p className='text-success fst-italic fs-4'>{d.price}</p>
