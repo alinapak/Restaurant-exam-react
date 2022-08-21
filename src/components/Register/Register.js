@@ -17,9 +17,7 @@ function Register() {
     formData.append('email', email);
     formData.append('password', password);
 
-    // need to change url if deploy to heroku
-    await fetch('https://restaurant-app-laravel.herokuapp.com/api/register', {
-    // await fetch("http://127.0.0.1:8000/api/register", {
+    await fetch('/register', {
       method: 'POST',
       body: formData,
       headers: { "Accept": 'application/json' },
@@ -56,7 +54,7 @@ function Register() {
             <button type="submit" className="btn btn-warning">Užsiregistruoti</button>
           </form>
         </div>
-        {message?<p className= 'mt-2 alert alert-danger'>Vartotojas tokiu el. pašto adresu jau užsiregsitravęs</p> :""}
+        {message ? <p className='mt-2 alert alert-danger'>Vartotojas tokiu el. pašto adresu jau užsiregsitravęs</p> : ""}
       </div>
     </>
   );

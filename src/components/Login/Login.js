@@ -3,17 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 async function loginUser(credentials) {
   console.log(JSON.stringify(credentials));
-  // need to change if deploy to heroku
-  return fetch('https://restaurant-app-laravel.herokuapp.com/api/login',
-  // return fetch('http://127.0.0.1:8000/api/login',
-    {
+  return fetch('/login',{
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
     }).then(data => data.json())
-  // .then((d) => {
-  //     console.log(d["authorisation"]['token']);
-  // return d;}
-  // );
 }
 
 export default function Login({ setLogedIn }) {
@@ -45,7 +38,6 @@ export default function Login({ setLogedIn }) {
       setToken(loginInfo["authorisation"]["token"]);
       localStorage.setItem('token', loginInfo["authorisation"]["token"]);
       localStorage.setItem('username', loginInfo["user"]["name"]);
-      // localStorage.setItem('admin', loginInfo["user"]["admin"]);
       setLogedIn(true);
     }
   }
@@ -71,7 +63,7 @@ export default function Login({ setLogedIn }) {
         </form>
 
       </div>
-      {message?<p className= 'mt-2 alert alert-danger'>Neteisingas pašto adresas arba slaptažodis</p> :""}
+      {message ? <p className='mt-2 alert alert-danger'>Neteisingas pašto adresas arba slaptažodis</p> : ""}
     </div>
   )
 }

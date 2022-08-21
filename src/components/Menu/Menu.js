@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Menu.css';
 import { Link } from 'react-router-dom';
 
@@ -21,12 +20,8 @@ function Menu() {
     const formData = new FormData();
     formData.append('title', title);
     if (restaurant !== "") {
-    
       restaurantsId.map(r => {
-        console.warn(r);
-        console.warn(restaurant);
         if (r !== parseInt(restaurant)) {
-          console.warn("<<<<<<<<<<<<<<>>>>>>>>>>>>>>");
           formData.append('restaurant_id', restaurant);
         }
         else if (r === parseInt(restaurant)) {
@@ -36,25 +31,19 @@ function Menu() {
           setMessage(true);
         }
       });
-      console.warn(">>>>>>>");
     }
     else if (restaurant === "") {
       e.preventDefault();
       setMessage(true);
     }
-    fetch('https://restaurant-app-laravel.herokuapp.com/api/v1/menus', {
-    // fetch("http://127.0.0.1:8000/api/v1/menus", {
+    fetch('/v1/menus', {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     });
   }
   function deleteMenu(id, e) {
-    // fetch from heroku
-     fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + id, {
-
-    // fetch while creating project
-    // fetch("http://127.0.0.1:8000/api/v1/menus/" + id, {
+    fetch("/v1/menus/" + id, {
       method: 'DELETE',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
     })
@@ -67,7 +56,6 @@ function Menu() {
       });
   }
   function selectMenu(id, e) {
-    // console.warn(title, price, file, restaurant);
     menus.map((m) => {
       if (m.id === id) {
         setMenuId(m.id);
@@ -97,22 +85,14 @@ function Menu() {
     else if (index === -1) {
       formData.set('restaurant_id', restaurant);
     }
-
-    // fetch from heroku
-    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + menuId, {
-    // fetch while creating app
-    // fetch("http://127.0.0.1:8000/api/v1/menus/" + menuId, {
+    fetch("/v1/menus/" + menuId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     })
   }
   useEffect(() => {
-    // fetch from heroku
-     fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants",
-
-    // fetch while creating app
-    // fetch("http://127.0.0.1:8000/api/v1/restaurants",
+    fetch("/v1/restaurants",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -124,20 +104,12 @@ function Menu() {
   }, [])
 
   useEffect(() => {
-    // fetch from heroku
-    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus",
-    // fetch while creating app
-    // fetch("http://127.0.0.1:8000/api/v1/menus",
+    fetch("/v1/menus",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
       .then(
         (result) => {
-          //   if(!result.ok) {
-          //     setError(result);
-          //     setIsLoaded(true);
-          // }
-          console.log(result); // <--- check this out in the console
           setMenus(result); setIsLoaded(true);
           const restIdList = result.map(r => r.restaurant_id);
           setRestaurantsId(restIdList);

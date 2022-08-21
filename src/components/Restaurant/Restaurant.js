@@ -48,10 +48,7 @@ function Restaurant() {
         });
         formData.append('city', city);
         formData.append('address', address);
-        // fetch from heroku
-        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants", {
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants", {
+        fetch("/v1/restaurants", {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
@@ -102,40 +99,22 @@ function Restaurant() {
         else if (index === -1) {
             formData.set('code', code);
         }
-        // console.warn(codes);
-        // codes.map(c => {
-        //     if (c !== parseInt(code)) {
-        //         formData.set('code', code);
-        //     }
-        //     else if (c === parseInt(code)) {
-        //         e.preventDefault();
-        //         setMessage(true);
-        //     }
-        // });
         formData.set('city', city);
         formData.set('address', address);
-        // fetch from heroku
-        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants/" + restId, {
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + restId, {
+        fetch("/v1/restaurants/" + restId, {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
         })
     }
     function renderMenu(e) {
-        // fetch("http://127.0.0.1:8000/api/v1/menus/" + menuId, {
-            fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + menuId, {
+        fetch("/v1/menus/" + menuId, {
             method: 'GET',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
             .then(res => res.json())
             .then(
                 (result) => {
-                    // if(!result.ok) {
-                    //     setError(result);
-                    //     setIsLoaded(true);
-                    // }
                     setDishes(result.dishes);
                     setIsLoaded(true);
                 },
@@ -144,9 +123,7 @@ function Restaurant() {
         setShowMenu(true);
     }
     function deleteRest(id, e) {
-        // fetch from heroku
-        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants/" + id, {
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants/" + id, {
+        fetch("/v1/restaurants/" + id, {
             method: 'DELETE',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
@@ -159,20 +136,12 @@ function Restaurant() {
     }
 
     useEffect(() => {
-        // fetch from heroku
-        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants",
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/restaurants",
-            { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
-        )
+        fetch("/v1/restaurants", {
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+        })
             .then(res => res.json())
             .then(
                 (result) => {
-                    // if(!result.ok) {
-                    //     setError(result);
-                    //     setIsLoaded(true);
-                    // }
-                    // console.log(result.code);
                     setRestaurants(result);
                     const codeList = result.map(r => r.code);
                     const titleList = result.map(t => t.title);
@@ -184,19 +153,12 @@ function Restaurant() {
                 (error) => { setError(error); setIsLoaded(true); })
     }, [])
     useEffect(() => {
-        //     // fetch from heroku
-        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus",
-        // fetch while creating app
-        // fetch("http://127.0.0.1:8000/api/v1/menus",
-            { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
-        )
+        fetch("/v1/menus", {
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
+        })
             .then(res => res.json())
             .then(
                 (result) => {
-                    // if(!result.ok) {
-                    //     setError(result);
-                    //     setIsLoaded(true);
-                    // }
                     setMenus(result);
                     setIsLoaded(true);
                 },
@@ -257,11 +219,12 @@ function Restaurant() {
                                     <div className="card-body d-flex ">
                                         <div>
                                             <h5 className="card-title">{d.title}</h5>
-                                            <img className='m-2 card-img-top' style={{ width: "200px", height: "150px", objectFit: "cover" }} 
-                                            // src={'http://127.0.0.1:8000/' + d.file}
-                                            // src heroku
-                                            src={'https://restaurant-app-laravel.herokuapp.com/'+d.file}
-                                            alt={d.title}
+                                            <img className='m-2 card-img-top' style={{ width: "200px", height: "150px", objectFit: "cover" }}
+                                            // src while in development mode
+                                                // src={'http://127.0.0.1:8000/' + d.file}
+                                                // src heroku
+                                                src={'https://restaurant-app-laravel.herokuapp.com/' + d.file}
+                                                alt={d.title}
                                             >
                                             </img>
                                             <p className='text-success fst-italic fs-4'>{d.price}</p>
