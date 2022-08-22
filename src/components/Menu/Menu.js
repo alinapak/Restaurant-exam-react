@@ -36,14 +36,16 @@ function Menu() {
       e.preventDefault();
       setMessage(true);
     }
-    fetch('/api/v1/menus', {
+    // fetch('/v1/menus', {
+    fetch('https://restaurant-app-laravel.herokuapp.com/api/v1/menus', {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     });
   }
   function deleteMenu(id, e) {
-    fetch("/api/v1/menus/" + id, {
+    // fetch("/v1/menus/" + id, {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + id, {
       method: 'DELETE',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
     })
@@ -85,14 +87,16 @@ function Menu() {
     else if (index === -1) {
       formData.set('restaurant_id', restaurant);
     }
-    fetch("/api/v1/menus/" + menuId, {
+    // fetch("/v1/menus/" + menuId, {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + menuId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
     })
   }
   useEffect(() => {
-    fetch("/api/v1/restaurants",
+    // fetch("/v1/restaurants",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -104,7 +108,8 @@ function Menu() {
   }, [])
 
   useEffect(() => {
-    fetch("/api/v1/menus",
+    // fetch("/v1/menus",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())

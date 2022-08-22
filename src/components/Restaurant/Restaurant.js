@@ -48,7 +48,8 @@ function Restaurant() {
         });
         formData.append('city', city);
         formData.append('address', address);
-        fetch("/api/v1/restaurants", {
+        // fetch("/v1/restaurants", {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants", {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
@@ -101,14 +102,16 @@ function Restaurant() {
         }
         formData.set('city', city);
         formData.set('address', address);
-        fetch("/api/v1/restaurants/" + restId, {
+        // fetch("/v1/restaurants/" + restId, {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants/" + restId, {
             method: 'POST',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
             body: formData
         })
     }
     function renderMenu(e) {
-        fetch("/api/v1/menus/" + menuId, {
+        // fetch("/v1/menus/" + menuId, {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus/" + menuId, {
             method: 'GET',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
@@ -123,7 +126,8 @@ function Restaurant() {
         setShowMenu(true);
     }
     function deleteRest(id, e) {
-        fetch("/api/v1/restaurants/" + id, {
+        // fetch("/v1/restaurants/" + id, {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants/" + id, {
             method: 'DELETE',
             headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
@@ -136,7 +140,8 @@ function Restaurant() {
     }
 
     useEffect(() => {
-        fetch("/api/v1/restaurants", {
+        // fetch("/v1/restaurants", {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/restaurants", {
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
             .then(res => res.json())
@@ -153,7 +158,8 @@ function Restaurant() {
                 (error) => { setError(error); setIsLoaded(true); })
     }, [])
     useEffect(() => {
-        fetch("/api/v1/menus", {
+        // fetch("/v1/menus", {
+        fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus", {
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
         })
             .then(res => res.json())

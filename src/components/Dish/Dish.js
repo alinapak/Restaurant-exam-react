@@ -24,7 +24,8 @@ function Dish() {
     formData.append('description', description);
     formData.append('menu_id', menu);
 
-    fetch("/api/v1/dishes", {
+    // fetch("/v1/dishes", {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes", {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -55,7 +56,8 @@ function Dish() {
     formData.set('description', description);
     formData.set('menu_id', menu);
 
-    fetch("/api/v1/dishes/" + dishId, {
+    // fetch("/v1/dishes/" + dishId, {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes/" + dishId, {
       method: 'POST',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` },
       body: formData
@@ -63,7 +65,8 @@ function Dish() {
   }
 
   function deleteDish(id, e) {
-    fetch("/api/v1/dishes/" + id, {
+    // fetch("/v1/dishes/" + id, {
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes/" + id, {
       method: 'DELETE',
       headers: { 'Accept': 'application/json', "Authorization": `Bearer ${token}` }
     })
@@ -77,7 +80,8 @@ function Dish() {
   }
 
   useEffect(() => {
-    fetch("/api/v1/menus",
+    // fetch("/v1/menus",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/menus",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -89,7 +93,8 @@ function Dish() {
   }, [])
 
   useEffect(() => {
-    fetch("/api/v1/dishes",
+    // fetch("/v1/dishes",
+    fetch("https://restaurant-app-laravel.herokuapp.com/api/v1/dishes",
       { headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', "Authorization": `Bearer ${token}` } }
     )
       .then(res => res.json())
