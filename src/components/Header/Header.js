@@ -13,7 +13,7 @@ const Header = () => {
                <ul className="navbar-nav ">
                   {admin==='admin'?<><li className="nav-item"><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/restaurants">Restoranai</NavLink></li>
                <li className=" "><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/menus">Menu</NavLink></li>
-                  <li className=" "><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/dishes">Patiekalai</NavLink></li></>:<li className="nav-item"><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/restaurants">Restoranai</NavLink></li>
+                  <li className=" "><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/dishes">Patiekalai</NavLink></li></>:<><li className="nav-item"><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/restaurants">Restoranai</NavLink></li><li className="nav-item"><NavLink className={({ isActive }) => (isActive ? "nav-link text-warning active" : "nav-link ")} to="/search">Ieškoti</NavLink></li></>
                   }
                  </ul>
                :

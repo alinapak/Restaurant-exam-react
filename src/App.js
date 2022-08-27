@@ -9,6 +9,7 @@ import Dish from './components/Dish/Dish';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import SearchRestaurant from './components/Restaurant/SearchRestaurant';
 
 function App() {
  
@@ -17,6 +18,7 @@ function App() {
     <Header/>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path="/search" element={<SearchRestaurant />} />
         <Route path='/restaurants' element={<Restaurant />} />
         <Route path='/menus' element={<Menu />} />
         <Route path='/dishes' element={<Dish />} />
